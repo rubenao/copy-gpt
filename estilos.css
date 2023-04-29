@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;600;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+html {
+    font-family: 'Outfit', sans-serif;
+}
+
+.container {
+    width: 70%;
+    min-height: 100vh;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.contenedor {
+
+    width: 70%;
+    min-height: 100vh;
+    margin: 0 auto;
+    margin-top: 100px;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px !important;
+    gap: 10px;
+    width: 250px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+a {
+    border: 1px solid black;
+    padding: 5px 12px;
+    text-decoration: none;
+    border-radius: 15px;
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
+
+/*Formulario */
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input[type="text"]{
+    border-radius: 10px;
+    padding: 12px 10px;
+    max-width: 500px;
+}
+
+input::placeholder {
+    font-family: 'Outfit';
+}
+
+.bloque {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+button {
+    /* Variables */
+    --button_radius: 0.75em;
+    --button_color: #e8e8e8;
+    --button_outline_color: #000000;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--button_radius);
+    background: var(--button_outline_color);
+    font-family: 'Outfit';
+    font-weight: 700;
+  }
+  
+  .button_top {
+    display: block;
+    box-sizing: border-box;
+    border: 2px solid var(--button_outline_color);
+    border-radius: var(--button_radius);
+    padding: 0.75em 1.5em;
+    background: var(--button_color);
+    color: var(--button_outline_color);
+    transform: translateY(-0.2em);
+    transition: transform 0.1s ease;
+  }
+  
+  button:hover .button_top {
+    /* Pull the button upwards when hovered */
+    transform: translateY(-0.33em);
+  }
+  
+  button:active .button_top {
+    /* Push the button downwards when pressed */
+    transform: translateY(0);
+  }
+
+   #response {
+	margin: 20px auto;
+	text-align: center;
+	width: 500px;
+}
+
+@media (max-width:475px){
+    .form {
+        width: 90%;
+    }
+
+    input[type="text"]{
+       width: 100%;
+    }
+}

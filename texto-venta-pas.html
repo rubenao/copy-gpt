@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texto de venta PAS</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div class="links">
+        <a href="ideas-titulos.html">Titulos creativos</a>
+        <a href="ideas-contenido.html">Ideas de contenido</a>
+        <a href="texto-venta-pas.html">Texto de venta P.A.S</a>
+    </div>
+    <div class="contenedor">
+
+        <h1>Texto de venta utilizando fórmula PAS</h1>
+        <form class="form">
+
+            <div class="bloque">
+                <label for="dolores">Ingresa los dolores o pain de tu público objetivo:</label>
+                <input type="text" id="dolores" name="dolores" placeholder="Escribe los dolores o pain de tu públic objetivo">
+            </div>
+
+            <div class="bloque">
+                <label for="producto">Ingresa tu producto o servicio que resuelve el problema:</label>
+                <input type="text" id="producto" name="producto" placeholder="Escribe la descripción de tu producto o servicio">
+            </div>
+
+            
+            <button type="button" id="submit-btn-ideas"><span class="button_top"> Button
+            </span></button>
+        </form>
+        <div id="response"></div>
+
+
+    </div>
+
+    <script>
+        const form = document.querySelector('.form');
+        const dolores = document.querySelector('#dolores');
+        const producto = document.querySelector('#producto');
+        const responseDiv = document.querySelector('#response');
+        const submitBtnideas = document.querySelector('#submit-btn-ideas');
+
+
+        submitBtnideas.addEventListener('click', async () => {
+            const dolores1 = dolores.value;
+            const producto1 = producto.value;
+ 
+
+            const response = await getResponse(dolores1, producto1);
+            responseDiv.innerHTML = response;
+        });
+
+
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault()
+            const dolores1 = dolores.value;
+            const producto1 = producto.value;
+
+            const response = await getResponse(dolores1, producto1);
+            responseDiv.innerHTML = response;
+        });
+
+        async function getResponse(dolores1, producto1) {
+            const apiKey = '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'; // Replace with your API key
+            const apiUrl = ' https://api.openai.com/v1/chat/completions ';
+
+            const data = {
+                messages: [{"role": "user", "content": `Escribe un texto de ventas utilizando la fórmula de copywriting 'Problema-Agitación-Resolución' que identifique ${dolores1} , agite las emociones del lector al mostrar los efectos negativos del problema y presente nuestro ${producto1} como la solución. Utiliza una narración persuasiva para hacer que el contenido sea más atractivo y memorable.`}],
+                max_tokens: 500,
+                model: "gpt-3.5-turbo",
+                
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            const json = await response.json();
+            return json.choices[0].message.content;
+        }
+
+    </script>
+    
+</body>
+</html>

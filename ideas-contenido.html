@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideas de contenido</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <div class="links">
+        <a href="ideas-titulos.html">Titulos creativos</a>
+        <a href="ideas-contenido.html">Ideas de contenido</a>
+        <a href="texto-venta-pas.html">Texto de venta P.A.S</a>
+    </div>
+
+    <div class="contenedor">
+
+        <h1>Ideas de contenido</h1>
+        <form class="form">
+
+            <div class="bloque">
+                <label for="nicho">Ingresa el nicho de tu contenido:</label>
+                <input type="text" id="nicho" name="nicho" placeholder="Escribe el nicho al que te diriges">
+            </div>
+
+            <div class="bloque">
+                <label for="numero">Ingresa el numero de ideas:</label>
+                <input type="text" id="numero" name="numero" placeholder="Escribe la cantidad de ideas">
+            </div>
+
+            <div class="bloque">
+                <label for="publico">Ingresa el público objetivo:</label>
+                <input type="text" id="publico" name="publico" placeholder="Escribe el público al que te diriges">
+            </div>
+            
+            <button type="button" id="submit-btn-ideas"><span class="button_top"> Button
+            </span></button>
+        </form>
+        <div id="response"></div>
+
+
+    </div>
+    
+
+    <script>
+        const form = document.querySelector('.form');
+        const nicho = document.querySelector('#nicho');
+        const numero = document.querySelector('#numero');
+        const publico = document.querySelector('#publico');
+        const responseDiv = document.querySelector('#response');
+        const submitBtnideas = document.querySelector('#submit-btn-ideas');
+
+
+        submitBtnideas.addEventListener('click', async () => {
+            const nicho1 = nicho.value;
+            const numero1 = numero.value;
+            const publico1 = publico.value
+
+            const response = await getResponse(nicho1, numero1, publico1);
+            responseDiv.innerHTML = response;
+        });
+
+
+
+        form.addEventListener('submit', async (e) => {
+
+            e.preventDefault()
+            const nicho1 = nicho.value;
+            const numero1= numero.value;
+            const publico1 = publico.value
+
+            const response = await getResponse(nicho1, numero1, publico1);
+            responseDiv.innerHTML = response;
+        });
+
+        async function getResponse(nicho1, numero1, publico1) {
+            const apiKey = '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'; // Replace with your API key
+            const apiUrl = ' https://api.openai.com/v1/chat/completions ';
+
+            const data = {
+                messages: [{"role": "user", "content": `Actúa como un experto en ${nicho1} . Dame ${numero1} ideas de contenido para ${numero1} días en formato de lista que conecten con ${publico1} y resuelva sus problemas.`}],
+                max_tokens: 500,
+                model: "gpt-3.5-turbo",
+                
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)
+            });
+
+            const json = await response.json();
+            return json.choices[0].message.content;
+        }
+    </script>
+    
+    
+</body>
+</html>
